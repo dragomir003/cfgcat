@@ -11,7 +11,9 @@ function App() {
     let [files, setFiles] = useState<File[]>([]);
 
     const appendFile = async () => {
-        const path = await open();
+        const path = await open({
+            filters: [{ name: "*", extensions: ["ecdc"] }]
+        });
         if (typeof path === "string") {
             const newFiles = [...files, path];
             setFiles(newFiles);
@@ -33,9 +35,12 @@ function App() {
             c.push(data);
         }
 
-        const result = c.join('').replace(/\n\n+/g, '');
+        const result = c.join('').replace(/\n\n+/g, '\n');
 
         let resultPath = await save({ defaultPath: await homeDir() });
+        let endsEcdc = resultPath.match(/^.*\.ecdc$/g);
+        if (endsEcdc === null || endsEcdc.length === 0)
+            resultPath += ".ecdc";
 
         await writeTextFile(resultPath, result);
 
