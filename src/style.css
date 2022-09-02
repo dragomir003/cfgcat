@@ -1,0 +1,13 @@
+:root {
+    --raisin-black: #32313eff;
+    --cadet: #5d6e74ff;
+    --beau-blue: #b8c8d1ff;
+
+    --color-primary: var(--beau-blue);
+    --color-secondary: var(--cadet);
+    --color-terciary: var(--raisin-black);
+
+    background-color: var(--color-terciary);
+    color: var(--color-primary);
+}
+
